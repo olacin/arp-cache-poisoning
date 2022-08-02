@@ -1,4 +1,5 @@
 # arp-cache-poisoning
+
 ARP Cache Poisoning made with Scapy.
 
 To run the attack:
@@ -19,5 +20,5 @@ You can see that router and attacker have the same MAC on the victim ARP table.
 
 To install the dependencies you can run
 ```bash
-pip install scapy
+pip install -r requirements.txt
 ```
